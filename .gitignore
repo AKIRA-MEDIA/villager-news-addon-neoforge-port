@@ -31,6 +31,7 @@ options.txt
 # Local Codex files
 .agents/
 .codex/
+Port Plan.md
 
 # Local environment and temporary files
 .env
