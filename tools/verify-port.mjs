@@ -27,6 +27,10 @@ const villagerRendererSource = readFileSync(join(root, "src/main/java/com/vnap/m
 const villagerSoundSource = readFileSync(join(root, "src/main/java/com/vnap/mixin/VillagerSoundMixin.java"), "utf8");
 const subtitleSource = readFileSync(join(root, "src/main/java/com/vnap/client/DialogueSubtitleState.java"), "utf8");
 const soundStateSource = readFileSync(join(root, "src/main/java/com/vnap/client/DialogueSoundState.java"), "utf8");
+const supplementalSoundSource = readFileSync(join(root, "src/main/java/com/vnap/client/SupplementalSoundState.java"), "utf8");
+const supplementalSoundCatalogSource = readFileSync(join(root, "src/main/java/com/vnap/sound/SupplementalSoundCatalog.java"), "utf8");
+const hurtEffectNetworkSource = readFileSync(join(root, "src/main/java/com/vnap/network/HurtEffectNetwork.java"), "utf8");
+const wanderingTraderSoundSource = readFileSync(join(root, "src/main/java/com/vnap/mixin/WanderingTraderSoundMixin.java"), "utf8");
 const animationStateSource = readFileSync(join(root, "src/main/java/com/vnap/client/DialogueAnimationState.java"), "utf8");
 const settingsSource = readFileSync(join(root, "src/main/java/com/vnap/config/VillagerNewsSettings.java"), "utf8");
 const settingsStateSource = readFileSync(join(root, "src/main/java/com/vnap/client/VillagerNewsSettingsState.java"), "utf8");
@@ -79,6 +83,23 @@ for (const [id, group] of groups) {
 }
 check(variantCount === 2212, `Expected 2212 synchronized variants, found ${variantCount}`);
 check(subtitleCount === 3741, `Expected 3741 timed subtitles, found ${subtitleCount}`);
+for (const effect of "abcdefghijklmnopqrstuv") {
+  check(sounds[`effect.${effect}`]?.sounds?.[0]?.name === `villager-news-addon-port:effect/${effect}`
+    && existsSync(join(modAssets, "sounds", "effect", `${effect}.ogg`)), `Missing supplemental Bedrock effect ${effect}`);
+}
+check(initializerSource.includes("HurtEffectPayload.TYPE")
+  && clientSource.includes("SupplementalSoundState.play(payload)")
+  && behaviorSource.includes("HurtEffectNetwork.send(level, entity")
+  && supplementalSoundCatalogSource.includes("ADULT_HURT_EFFECTS")
+  && supplementalSoundCatalogSource.includes("BABY_HURT_EFFECTS")
+  && hurtEffectNetworkSource.includes("TRACKING_RANGE_SQUARED")
+  && supplementalSoundSource.includes("EntityBoundSoundInstance"),
+"The supplemental Bedrock hurt effects are not synchronized to nearby clients");
+check(mixinConfiguration.includes("WanderingTraderSoundMixin")
+  && wanderingTraderSoundSource.includes("getAmbientSound")
+  && wanderingTraderSoundSource.includes("getHurtSound")
+  && wanderingTraderSoundSource.includes("getDeathSound"),
+"The wandering trader can still play vanilla vocal sounds");
 check(clientSource.includes("DialogueSubtitleState.start(payload)")
   && clientSource.includes("DialogueSubtitleState.register()")
   && clientSource.includes("DialogueSubtitleState.tick(client)"),
@@ -135,7 +156,6 @@ check(animationStateSource.includes("walkAnimation.position(partialTick)")
 	&& animationStateSource.includes("getGameTimeDeltaPartialTick(true)")
 	&& animationStateSource.includes("IDLE_BLEND_SECONDS")
 	&& animationStateSource.includes("idle.update(age, canIdle)")
-	&& animationStateSource.includes("poseWeightAt(active.elapsedSeconds())")
 	&& animationStateSource.includes("LOOK_STATES")
 	&& animationStateSource.includes("Mth.wrapDegrees(targetYaw - yaw)")
 	&& animationStateSource.includes("previous.poseSnapshot()")
@@ -288,7 +308,7 @@ check(behaviorSource.includes("playIronGolemAttackWitness(entity, source)")
 	&& behaviorSource.includes('playSharedId(witness, "qffeco"')
 	&& behaviorSource.includes("target = player")
 	&& behaviorSource.includes('direct.equals("snowball")')
-	&& behaviorSource.includes('direct.equals("falling_block")'),
+	&& behaviorSource.includes('case "falling_block" -> "bodvsv"'),
 "Damage observers or projectile and falling-block reactions have incorrect subjects");
 check(behaviorSource.includes("entity instanceof WanderingTrader trader")
 	&& behaviorSource.includes('attacker instanceof Player ? "vevdkl" : "wyvzhk"')
@@ -337,10 +357,10 @@ check(behaviorSource.includes("!VillagerNewsSettings.dialogueEnabled()")
   && settingsStateSource.includes("getConnection() != null"), "Muting dialogue is not handled safely");
 check((behaviorSource.match(/!villager\.isSleeping\(\)/g) ?? []).length >= 5
 	&& behaviorSource.includes("if (sleeping)")
-	&& behaviorSource.includes('villager.isSleeping() && !group.id().equals("asqzby")'), "Sleeping villagers still react through normal observer paths");
+	&& behaviorSource.includes('sleepingVillager.isSleeping() && !group.id().equals("asqzby")'), "Sleeping villagers still react through normal observer paths");
 check(behaviorSource.includes("delayVillagerSleep")
   && behaviorSource.includes("processPendingSleep")
-  && behaviorSource.includes("PENDING_SLEEP.remove(villager.getUUID())")
+  && behaviorSource.includes("PENDING_SLEEP.remove(id)")
   && existsSync(join(root, "src/main/java/com/vnap/mixin/VillagerSleepMixin.java"))
   && mixinConfiguration.includes("VillagerSleepMixin"), "Villager sleep dialogue timing and interruption are incomplete");
 check(behaviorSource.includes("updatedVillagers.add(villager.getUUID())")
@@ -367,7 +387,7 @@ check(clientSource.includes("if (!level.isClientSide()) return InteractionResult
 check(handbookSource.includes("VillagerNewsSettingsState.setChattiness")
   && handbookSource.includes("VillagerNewsSettingsState.setRareVoicelines")
   && handbookSource.includes("VillagerNewsSettingsState.setSpawnSpecialVillagers")
-  && handbookSource.includes("showSubtitles().set"), "The handbook settings are not interactive");
+  && handbookSource.includes("VillagerNewsClientSettings.setShowSubtitles"), "The handbook settings are not interactive");
 check(settingsSource.includes("scaleCooldown") && settingsSource.includes("rareVoicelines")
   && settingsSource.includes("spawnSpecialVillagers"), "The Bedrock settings are not persisted on the server");
 check(behaviorSource.includes("VillagerNewsSettings.scaleCooldown")
@@ -416,7 +436,7 @@ check(!villagerModelSource.includes("villager_news_sign_board_")
   && signLayerSource.includes('"textures/block/" + wood + "_sign.png"')
   && !signLayerSource.includes("textures/entity/signs/")
   && signLayerSource.includes("getPositionerForAttachment(EMFAttachment.Type.VILLAGER)")
-  && signLayerSource.includes("-5.75F / 16.0F")
+  && signLayerSource.includes("5.75F / 16.0F")
   && villagerModelSource.includes('"villager_item"')
   && existsSync(join(root, "src/main/java/com/vnap/mixin/client/VillagerRendererMixin.java"))
   && existsSync(join(modAssets, "textures", "entity", "sign_text.png")),
@@ -453,8 +473,8 @@ for (const [profession, texture] of Object.entries(professionTextures)) {
   check(existsSync(join(resources, "assets", "minecraft", "textures", "entity", "villager", "profession", `${profession}.png`)),
     `${profession} profession texture was not generated`);
 }
-check(/^version=1\.3\.2$/m.test(gradleProperties), "The project version is not 1.3.2");
-check(language["guide.villager-news-addon-port.header"] === "Villager News 1.3.2", "The handbook version is not 1.3.2");
+check(/^version=1\.3\.6$/m.test(gradleProperties), "The project version is not 1.3.6");
+check(language["guide.villager-news-addon-port.header"] === "Villager News 1.3.6", "The handbook version is not 1.3.6");
 const merchantCheck = behaviorSource.indexOf("player.containerMenu instanceof MerchantMenu");
 const openingDialogue = behaviorSource.indexOf("trade_open:");
 check(merchantCheck >= 0 && openingDialogue > merchantCheck, "Trade opening dialogue still runs before the merchant menu opens");
@@ -817,7 +837,7 @@ for (const file of readdirSync(cem).filter((name) => name.endsWith(".jem"))) {
   JSON.parse(readFileSync(join(cem, file), "utf8"));
 }
 
-check(gradleProperties.includes("version=1.3.2"), "Mod version is not 1.3.2");
+check(gradleProperties.includes("version=1.3.6"), "Mod version is not 1.3.6");
 
 console.log(JSON.stringify({
   dialogueGroups: groups.length,

@@ -1457,6 +1457,15 @@ function scanDialogue(node) {
 scanMetadata(sourceFile);
 scanDialogue(sourceFile);
 
+const supplementalSoundNames = [..."abcdefghijklmnopqrstuv"];
+mkdirSync(join(modAssets, "sounds", "effect"), { recursive: true });
+for (const name of supplementalSoundNames) {
+	const sourceFile = join(resourceRoot, "sounds", "oreville", "vn", `${name}.ogg`);
+	const outputFile = join(modAssets, "sounds", "effect", `${name}.ogg`);
+	copyFileSync(sourceFile, outputFile);
+	repairOggGranules(outputFile);
+}
+
 function variableInitializer(name) {
   let result;
   function visit(node) {
@@ -1633,7 +1642,12 @@ for (const [id, group] of dialogueGroups) {
       stream: true,
       }],
     };
-  }
+	}
+}
+for (const name of supplementalSoundNames) {
+	javaSounds[`effect.${name}`] = {
+		sounds: [{ name: `${modNamespace}:effect/${name}` }],
+	};
 }
 writeJson(join(modAssets, "dialogues.json"), catalog);
 writeJson(join(modAssets, "handbook.json"), handbook);

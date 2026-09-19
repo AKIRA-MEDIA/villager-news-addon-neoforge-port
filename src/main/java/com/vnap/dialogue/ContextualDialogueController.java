@@ -4,6 +4,7 @@ import com.vnap.config.VillagerNewsSettings;
 import com.vnap.entity.VillagerNewsData;
 import com.vnap.item.VillagerNewsItems;
 import com.vnap.network.DialogueAnimationNetwork;
+import com.vnap.network.HurtEffectNetwork;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -856,7 +857,7 @@ public final class ContextualDialogueController {
 			double x = villager.getX() + Math.cos(angle) * distance;
 			double y = villager.getY() + villager.getRandom().nextInt(11) - 5;
 			double z = villager.getZ() + Math.sin(angle) * distance;
-			if (villager.randomTeleport(x, y, z, true)) {
+			if (villager.randomTeleport(x, y, z, true, state -> false)) {
 				villager.getNavigation().stop();
 				return true;
 			}
@@ -1634,6 +1635,10 @@ public final class ContextualDialogueController {
 		playIronGolemAttackWitness(entity, source);
 		playHurtWitness(entity);
 		if (hasDamageLock(entity)) return;
+		if (entity.isAlive() && entity.level() instanceof ServerLevel level
+				&& (entity instanceof Villager || entity instanceof WanderingTrader)) {
+			HurtEffectNetwork.send(level, entity, entity instanceof Villager villager && villager.isBaby());
+		}
 		if (entity instanceof Sheep sheep && isWooly(sheep)) {
 			Entity attacker = source.getEntity();
 			String id = attacker instanceof Player ? "ncyeaw" : "eyiraw";

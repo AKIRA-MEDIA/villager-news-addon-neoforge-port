@@ -524,7 +524,7 @@ public final class DialogueTestCommand {
 
 	private static void prepareEntity(Entity entity, Vec3 position) {
 		entity.addTag(ContextualDialogueController.DIALOGUE_TEST_TAG);
-		entity.setInvulnerable(true);
+		entity.setPermanentlyInvulnerable(true);
 		entity.setSilent(true);
 		entity.setNoGravity(!(entity instanceof LivingEntity));
 		entity.snapTo(position);

@@ -17694,5 +17694,159 @@
         "stream": true
       }
     ]
+  },
+  "effect.a": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/a"
+      }
+    ]
+  },
+  "effect.b": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/b"
+      }
+    ]
+  },
+  "effect.c": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/c"
+      }
+    ]
+  },
+  "effect.d": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/d"
+      }
+    ]
+  },
+  "effect.e": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/e"
+      }
+    ]
+  },
+  "effect.f": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/f"
+      }
+    ]
+  },
+  "effect.g": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/g"
+      }
+    ]
+  },
+  "effect.h": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/h"
+      }
+    ]
+  },
+  "effect.i": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/i"
+      }
+    ]
+  },
+  "effect.j": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/j"
+      }
+    ]
+  },
+  "effect.k": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/k"
+      }
+    ]
+  },
+  "effect.l": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/l"
+      }
+    ]
+  },
+  "effect.m": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/m"
+      }
+    ]
+  },
+  "effect.n": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/n"
+      }
+    ]
+  },
+  "effect.o": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/o"
+      }
+    ]
+  },
+  "effect.p": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/p"
+      }
+    ]
+  },
+  "effect.q": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/q"
+      }
+    ]
+  },
+  "effect.r": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/r"
+      }
+    ]
+  },
+  "effect.s": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/s"
+      }
+    ]
+  },
+  "effect.t": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/t"
+      }
+    ]
+  },
+  "effect.u": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/u"
+      }
+    ]
+  },
+  "effect.v": {
+    "sounds": [
+      {
+        "name": "villager-news-addon-port:effect/v"
+      }
+    ]
   }
 }

@@ -7,8 +7,10 @@ import com.vnap.dialogue.ContextualDialogueController;
 import com.vnap.dialogue.DialogueCatalog;
 import com.vnap.item.VillagerNewsItems;
 import com.vnap.network.DialogueAnimationPayload;
+import com.vnap.network.HurtEffectPayload;
 import com.vnap.network.VillagerNewsSettingsNetwork;
 import com.vnap.network.VillagerNewsSettingsPayload;
+import com.vnap.sound.SupplementalSoundCatalog;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 
@@ -26,10 +28,12 @@ public class VillagerNewsAddonPort implements ModInitializer {
 	public void onInitialize() {
 		VillagerNewsItems.register();
 		PayloadTypeRegistry.clientboundPlay().register(DialogueAnimationPayload.TYPE, DialogueAnimationPayload.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(HurtEffectPayload.TYPE, HurtEffectPayload.CODEC);
 		PayloadTypeRegistry.clientboundPlay().register(VillagerNewsSettingsPayload.TYPE, VillagerNewsSettingsPayload.CODEC);
 		PayloadTypeRegistry.serverboundPlay().register(VillagerNewsSettingsPayload.TYPE, VillagerNewsSettingsPayload.CODEC);
 		VillagerNewsSettings.load();
 		VillagerNewsSettingsNetwork.register();
+		SupplementalSoundCatalog.register();
 		DialogueCatalog.register();
 		ContextualDialogueController.register();
 		if (VillagerNewsBuildSettings.dialogueTestCommand()) DialogueTestCommand.register();

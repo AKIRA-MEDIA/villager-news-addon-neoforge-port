@@ -47,7 +47,7 @@ public final class VillagerNewsSignLayer extends RenderLayer<VillagerRenderState
 			positioner.accept(poseStack);
 		}
 		poseStack.translate(0.0F, 5.75F / 16.0F, -1.75F / 16.0F);
-		poseStack.mulPose(Axis.XP.rotationDegrees(42.97F));
+		poseStack.rotateDegrees(Axis.XP, 42.97F);
 		collector.submitCustomGeometry(poseStack, RenderTypes.entityCutout(BOARD_TEXTURES[type]),
 			(pose, vertices) -> drawBoard(pose, vertices, packedLight));
 		collector.submitCustomGeometry(poseStack, RenderTypes.entityCutout(TEXT_TEXTURE),

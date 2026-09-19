@@ -3,6 +3,7 @@ package com.vnap.client;
 import com.vnap.VillagerNewsAddonPort;
 import com.vnap.item.VillagerNewsItems;
 import com.vnap.network.DialogueAnimationPayload;
+import com.vnap.network.HurtEffectPayload;
 import com.vnap.network.VillagerNewsSettingsPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -55,6 +56,9 @@ public final class VillagerNewsAddonPortClient implements ClientModInitializer {
 				DialogueAnimationState.start(payload);
 				DialogueSubtitleState.start(payload);
 			})
+		);
+		ClientPlayNetworking.registerGlobalReceiver(HurtEffectPayload.TYPE, (payload, context) ->
+			context.client().execute(() -> SupplementalSoundState.play(payload))
 		);
 		ClientPlayNetworking.registerGlobalReceiver(VillagerNewsSettingsPayload.TYPE, (payload, context) ->
 			context.client().execute(() -> VillagerNewsSettingsState.apply(payload))
