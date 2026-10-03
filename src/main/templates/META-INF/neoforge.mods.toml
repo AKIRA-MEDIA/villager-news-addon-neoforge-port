@@ -35,18 +35,14 @@ displayName="${mod_name}" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 
-# A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="examplemod.png" #optional
-
 # A text field displayed in the mod UI
-#credits="" #optional
-
-# The authors of the mod, displayed in the mod UI (optional)
-#authors=""
+credits="Oreville Studios Ltd, Element Animation, Java port assembled by marcy"
 
 # The description text for the mod (multi line!) (#mandatory)
+authors="Oreville Studios Ltd, Element Animation, Java port assembled by marcy"
+logoFile="assets/villager-news-addon-port/icon.png"
 description='''
-Example mod description.
+A Java Edition port of Villager News with contextual dialogue and EMF, ETF, and ESF models, textures, and sounds.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
@@ -109,6 +105,9 @@ side = "BOTH"
 
 [[mixins]]
 config = "villager-news-addon-port.mixins.json"
+
+[[mixins]]
+config = "villager-news-addon-port.client.mixins.json"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
