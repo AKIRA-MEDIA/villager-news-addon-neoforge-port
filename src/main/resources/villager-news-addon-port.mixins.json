@@ -4,7 +4,12 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractVillagerMixin",
-    "VillagerDataMixin"
+    "SheepSoundMixin",
+    "SpawnEggItemMixin",
+    "VillagerDataMixin",
+    "VillagerSleepMixin",
+    "VillagerSoundMixin",
+    "WanderingTraderSoundMixin"
   ],
   "injectors": {
     "defaultRequire": 1
