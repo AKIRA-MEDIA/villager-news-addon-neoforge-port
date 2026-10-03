@@ -137,6 +137,11 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    compileOnly files(
+            'libs/entity_model_features-3.3.9-1.21-neoforge.jar',
+            'libs/entity_texture_features-7.2.4-1.21-neoforge.jar',
+            'libs/entity_sound_features-0.8.2-1.21-neoforge.jar'
+    )
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
