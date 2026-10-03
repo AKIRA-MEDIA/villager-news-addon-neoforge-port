@@ -3,6 +3,7 @@ package com.vnap;
 import com.mojang.logging.LogUtils;
 import com.vnap.config.VillagerNewsSettings;
 import com.vnap.dialogue.DialogueCatalog;
+import com.vnap.item.VillagerNewsItems;
 import com.vnap.sound.SupplementalSoundCatalog;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -19,14 +20,16 @@ public class VillagerNewsAddonPort {
 
     public VillagerNewsAddonPort(IEventBus modEventBus) {
         VillagerNewsSettings.load();
-        modEventBus.addListener(VillagerNewsAddonPort::registerSounds);
+        modEventBus.addListener(VillagerNewsAddonPort::onRegister);
     }
 
-    private static void registerSounds(RegisterEvent event) {
+    private static void onRegister(RegisterEvent event) {
         event.register(Registries.SOUND_EVENT, helper -> {
             DialogueCatalog.register(helper);
             SupplementalSoundCatalog.register(helper);
         });
+        event.register(Registries.ITEM, VillagerNewsItems::registerItems);
+        event.register(Registries.CREATIVE_MODE_TAB, VillagerNewsItems::registerTab);
     }
 
     public static ResourceLocation id(String path) {
