@@ -1,9 +1,13 @@
 package com.vnap;
 
 import com.mojang.logging.LogUtils;
+import com.vnap.client.ClientPayloadHandlers;
 import com.vnap.config.VillagerNewsSettings;
+import com.vnap.dialogue.ContextualDialogueController;
 import com.vnap.dialogue.DialogueCatalog;
 import com.vnap.item.VillagerNewsItems;
+import com.vnap.network.DialogueAnimationPayload;
+import com.vnap.network.HurtEffectPayload;
 import com.vnap.network.VillagerNewsSettingsNetwork;
 import com.vnap.sound.SupplementalSoundCatalog;
 import net.minecraft.core.registries.Registries;
@@ -14,9 +18,6 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.slf4j.Logger;
-import com.vnap.client.ClientPayloadHandlers;
-import com.vnap.network.DialogueAnimationPayload;
-import com.vnap.network.HurtEffectPayload;
 
 @Mod(VillagerNewsAddonPort.MOD_ID)
 public class VillagerNewsAddonPort {
@@ -29,6 +30,7 @@ public class VillagerNewsAddonPort {
         modEventBus.addListener(VillagerNewsAddonPort::onRegister);
         modEventBus.addListener(VillagerNewsAddonPort::onRegisterPayloads);
         VillagerNewsSettingsNetwork.registerEvents();
+        ContextualDialogueController.register();
     }
 
     private static void onRegister(RegisterEvent event) {
