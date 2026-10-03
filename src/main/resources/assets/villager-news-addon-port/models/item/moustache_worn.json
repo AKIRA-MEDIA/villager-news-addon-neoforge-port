@@ -1,5 +1,11 @@
 {
   "ambientocclusion": false,
+    "display": {
+    "head": {
+      "translation": [0, 0, 0],
+      "scale": [1.0, 1.0, 1.0]
+    }
+  },
   "textures": {
     "texture": "villager-news-addon-port:item/worn/moustache",
     "particle": "villager-news-addon-port:item/worn/moustache"

@@ -1,6 +1,26 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "villager-news-addon-port:item/microphone"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "villager-news-addon-port:item/microphone_held"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "villager-news-addon-port:item/microphone"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "villager-news-addon-port:item/microphone"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "villager-news-addon-port:item/microphone"
+      }
+    }
   }
 }

@@ -1,6 +1,26 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "villager-news-addon-port:item/handbook"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "villager-news-addon-port:item/handbook_held"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "villager-news-addon-port:item/handbook"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "villager-news-addon-port:item/handbook"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "villager-news-addon-port:item/handbook"
+      }
+    }
   }
 }

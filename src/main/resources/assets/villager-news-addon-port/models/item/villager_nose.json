@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "villager-news-addon-port:item/villager_nose"
+  "loader": "neoforge:separate_transforms",
+  "base": { "parent": "villager-news-addon-port:item/villager_nose_icon" },
+  "perspectives": {
+    "head": { "parent": "villager-news-addon-port:item/villager_nose_worn" }
   }
 }
