@@ -246,7 +246,7 @@ This project is a NeoForge 1.21.1 port based on the original Villager News Add-O
 
 The original characters, models, textures, animations, sounds, voice acting, and other original assets remain the property of their respective creators.
 
-See [LICENSE](LICENSE) for licensing information.
+The NeoForge port code and changes written by Akira-Media are free to use under the MIT licence (see [LICENSE-PORT](LICENSE-PORT)): you may use, modify and redistribute them, including in your own projects. This does not cover the original Villager News models, textures, animations, sounds, voice acting and dialogue, which remain the property of their creators, or the code inherited from the upstream Java port, which is covered only as described in [LICENSE](LICENSE) (the Fabric template code is CC0).
 
 ### AI Assistance
 
