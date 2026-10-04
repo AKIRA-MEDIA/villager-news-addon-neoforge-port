@@ -6,7 +6,7 @@ It brings the Villager News characters, models, animations, textures, voice acti
 
 This fork is based on the Fabric port for Minecraft 26.3 by MarcYohannTheScripter, which is itself based on the original Villager News Add-On by Oreville Studios Ltd and Element Animation. See [Credits](#credits).
 
-Version in this repository: **1.0.2**
+Version in this repository: **1.0.3**
 
 ## Features
 
@@ -185,7 +185,7 @@ build/libs/
 For the current version, the resulting artifact is:
 
 ```text
-villager_news_addon_port-1.0.2.jar
+villager_news_addon_port-1.0.3.jar
 ```
 
 Other useful tasks:
