@@ -1,4 +1,5 @@
 {
+  "gui_light": "front",
   "loader": "neoforge:separate_transforms",
   "base": { "parent": "villager-news-addon-port:item/villager_nose_icon" },
   "perspectives": {

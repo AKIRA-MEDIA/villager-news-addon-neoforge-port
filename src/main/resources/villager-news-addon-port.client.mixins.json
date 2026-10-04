@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "com.vnap.mixin.client",
   "compatibilityLevel": "JAVA_17",
-  "client": [],
+  "client": [
+    "CrossedArmsItemLayerMixin"
+  ],
   "injectors": {
     "defaultRequire": 0
   }
