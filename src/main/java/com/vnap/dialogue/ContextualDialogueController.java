@@ -1682,7 +1682,7 @@ public final class ContextualDialogueController {
                     }
                     if (dialogue == null && (entity.isPassenger() || !entity.getPassengers().isEmpty())) dialogue = "dxeaal";
                     if (dialogue == null && entity.isBaby()) dialogue = BABY_ENTITY_DIALOGUES.get(path);
-                    if (dialogue == null) dialogue = NEARBY_ENTITY_DIALOGUES.get(path);
+                    if (dialogue == null) dialogue = NEARBY_ENTITY_DIALOGUES.get(standInPath(entity, path));
                     if (dialogue == null && !(entity instanceof WanderingTrader) && !(entity instanceof Sheep sheep && isWooly(sheep))) {
                         dialogue = "gjtuqd";
                     }
@@ -1691,7 +1691,17 @@ public final class ContextualDialogueController {
                 });
     }
 
-    private static void onDamage(LivingEntity entity, net.minecraft.world.damagesource.DamageSource source,
+    private static final java.util.Set<String> STAND_IN_NAMES = java.util.Set.of("creaking", "copper_golem", "happy_ghast", "sulfur_cube");
+
+/** Mobs newer than 1.21.1 cannot exist here, so a mob renamed with one of their names stands in for them. */
+private static String standInPath(Entity entity, String path) {
+if (entity.hasCustomName()) {
+String name = entity.getCustomName().getString().trim().toLowerCase(java.util.Locale.ROOT).replace(' ', '_');
+if (STAND_IN_NAMES.contains(name)) return name;
+}
+return path;
+}
+	private static void onDamage(LivingEntity entity, net.minecraft.world.damagesource.DamageSource source,
                                  float baseDamageTaken, float damageTaken, boolean blocked) {
         if (entity.getTags().contains(DIALOGUE_TEST_TAG)) return;
         if (blocked || damageTaken <= 0.0F) return;
