@@ -1,11 +1,11 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "com.vnap.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractVillagerMixin",
     "SheepSoundMixin",
-    "SpawnEggItemMixin",
     "VillagerDataMixin",
     "VillagerSleepMixin",
     "VillagerSoundMixin",

@@ -32,12 +32,12 @@ public final class VillagerNewsItems {
 	public static final Item MOUSTACHE = add("moustache", new HeadItem(single()));
 	public static final Item TESTIFICATE_MAN_HELMET = add("testificate_man_helmet", new HeadItem(single()));
 	public static final Item VILLAGER_NOSE = add("villager_nose", new HeadItem(single()));
-	public static final Item MAYOR_VILLAGER_SPAWN_EGG = spawnEgg("mayor_villager_spawn_egg", EntityType.VILLAGER, "Mayor Villager", 0x563C33, 0xBD8B72);
-	public static final Item TESTIFICATE_MAN_SPAWN_EGG = spawnEgg("testificate_man_spawn_egg", EntityType.VILLAGER, "Testificate Man", 0x563C33, 0xBD8B72);
-	public static final Item VILLAGER_5_SPAWN_EGG = spawnEgg("villager_5_spawn_egg", EntityType.VILLAGER, "Villager #5", 0x563C33, 0xBD8B72);
-	public static final Item VILLAGER_9_SPAWN_EGG = spawnEgg("villager_9_spawn_egg", EntityType.VILLAGER, "Villager #9", 0x563C33, 0xBD8B72);
-	public static final Item UNTOUCHABLE_VILLAGER_SPAWN_EGG = spawnEgg("untouchable_villager_spawn_egg", EntityType.VILLAGER, "Villager Unreachable", 0x563C33, 0xBD8B72);
-	public static final Item WOOLY_SPAWN_EGG = spawnEgg("wooly_spawn_egg", EntityType.SHEEP, "Wooly The Sheep", 0xE7E7E7, 0xFFB5B5);
+	public static final Item MAYOR_VILLAGER_SPAWN_EGG = spawnEgg("mayor_villager_spawn_egg", EntityType.VILLAGER, "Mayor Villager", 0xFFFFFF, 0xFFFFFF);
+	public static final Item TESTIFICATE_MAN_SPAWN_EGG = spawnEgg("testificate_man_spawn_egg", EntityType.VILLAGER, "Testificate Man", 0xFFFFFF, 0xFFFFFF);
+	public static final Item VILLAGER_5_SPAWN_EGG = spawnEgg("villager_5_spawn_egg", EntityType.VILLAGER, "Villager #5", 0xFFFFFF, 0xFFFFFF);
+	public static final Item VILLAGER_9_SPAWN_EGG = spawnEgg("villager_9_spawn_egg", EntityType.VILLAGER, "Villager #9", 0xFFFFFF, 0xFFFFFF);
+	public static final Item UNTOUCHABLE_VILLAGER_SPAWN_EGG = spawnEgg("untouchable_villager_spawn_egg", EntityType.VILLAGER, "Villager Unreachable", 0xFFFFFF, 0xFFFFFF);
+	public static final Item WOOLY_SPAWN_EGG = spawnEgg("wooly_spawn_egg", EntityType.SHEEP, "Wooly The Sheep", 0xFFFFFF, 0xFFFFFF);
 
 	static {
 		COSMETICS.put(MAYOR_HAT, 1);

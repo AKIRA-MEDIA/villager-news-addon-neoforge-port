@@ -3,7 +3,6 @@ package com.vnap;
 import com.mojang.logging.LogUtils;
 import com.vnap.client.ClientPayloadHandlers;
 import com.vnap.command.DialogueTestCommand;
-import com.vnap.config.VillagerNewsBuildSettings;
 import com.vnap.config.VillagerNewsSettings;
 import com.vnap.dialogue.ContextualDialogueController;
 import com.vnap.dialogue.DialogueCatalog;
@@ -16,7 +15,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -34,10 +32,8 @@ public class VillagerNewsAddonPort {
         modEventBus.addListener(VillagerNewsAddonPort::onRegisterPayloads);
         VillagerNewsSettingsNetwork.registerEvents();
         ContextualDialogueController.register();
-        // The test command is a developer tool: always on in a dev run, otherwise only if the build flag is set.
-        if (VillagerNewsBuildSettings.dialogueTestCommand() || !FMLEnvironment.production) {
-            DialogueTestCommand.register();
-        }
+        // /dialoguetest needs operator permission (level 2), so it is safe to register in every build.
+        DialogueTestCommand.register();
         LOGGER.info("Villager News models, textures, and contextual dialogue are ready.");
     }
 
