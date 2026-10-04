@@ -254,11 +254,15 @@ public final class HandbookScreen extends Screen {
 		spawnSpecialVillagers.active = canEdit;
 		addRenderableWidget(spawnSpecialVillagers);
 		y += 26;
-		addText(left, y + 6, labelWidth - 6, Component.literal("Villager Style"), false);
-		Button style = Button.builder(Component.literal("Villager News"), button -> {
+		addText(left, y + 6, labelWidth - 6, Component.literal("Override Resource Packs"), false);
+		Button packPriority = Button.builder(Component.literal(toggleLabel(VillagerNewsPriorityPack.enabled())), button -> {
+			boolean enabled = !VillagerNewsPriorityPack.enabled();
+			VillagerNewsPriorityPack.setEnabled(enabled);
+			button.setMessage(Component.literal(toggleLabel(enabled)));
 		}).bounds(buttonLeft, y, buttonWidth, 20).build();
-		style.active = false;
-		addRenderableWidget(style);
+		packPriority.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal(
+			"On: Villager News villager, trader and Wooly models and animations take priority over resource packs such as Fresh Animations. Off: resource packs can replace them.")));
+		addRenderableWidget(packPriority);
 		if (settingsOnly) {
 			addRenderableWidget(Button.builder(Component.literal("Done"), button -> onClose())
 				.bounds(left, height - 30, contentWidth, 20).build());

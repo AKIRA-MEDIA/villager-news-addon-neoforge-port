@@ -193,3 +193,12 @@ idea {
         downloadJavadoc = true
     }
 }
+
+// Villager News: expose the Minecraft-namespace overrides a second time as a built-in resource pack
+// (see VillagerNewsPriorityPack) so they can sit above user resource packs such as Fresh Animations.
+processResources {
+    from('src/main/resources/assets/minecraft') {
+        include 'optifine/**', 'textures/**'
+        into 'resourcepacks/vnap_priority/assets/minecraft'
+    }
+}

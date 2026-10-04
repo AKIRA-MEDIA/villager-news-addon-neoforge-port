@@ -6,7 +6,7 @@ It brings the Villager News characters, models, animations, textures, voice acti
 
 This fork is based on the Fabric port for Minecraft 26.3 by MarcYohannTheScripter, which is itself based on the original Villager News Add-On by Oreville Studios Ltd and Element Animation. See [Credits](#credits).
 
-Version in this repository: **1.0.1**
+Version in this repository: **1.0.2**
 
 ## Features
 
@@ -28,6 +28,7 @@ Version in this repository: **1.0.1**
 * Persistent natural spawning for one of each special character in distant villages
 * A craftable Villager News Handbook
 * A settings screen, opened from the handbook or from the config button in the NeoForge Mods list
+* A setting that makes the Villager News models and animations take priority over resource packs such as Fresh Animations
 * An operator-only `/dialoguetest` command for checking any dialogue group
 
 ## What is different in this fork
@@ -50,6 +51,7 @@ This is a port of the Fabric / Minecraft 26.3 version to a much older game versi
 | Baby villager spawn-egg reaction | Mixin on `SpawnEggItem` | NeoForge events (the mixin failed on 1.21.1) |
 | Turn-in-place animation | Fed from a renderer mixin | Fed from a render event |
 | `/dialoguetest` | Only if a build flag is set | Always registered, operator permission only |
+| Resource pack priority | Resource packs always override the mod's models | Optional setting (on by default) that puts the mod's models above resource packs such as Fresh Animations |
 | Mixins | Includes render-state and profession-layer mixins | Six common mixins and two client mixins; the render-state and profession-layer mixins were not needed in 1.21.1 |
 
 ## Requirements
@@ -124,11 +126,11 @@ The vanilla villager and wandering trader yes, no and celebrate sounds are silen
 
 ## Configuration
 
-Open the settings from the Villager News Handbook, or use the config button next to the mod in the NeoForge Mods list. Settings are saved to your config folder. Settings that affect dialogue are controlled by the server, and only operators can change them on a multiplayer server.
+Open the settings from the Villager News Handbook, or use the config button next to the mod in the NeoForge Mods list. Settings are saved to your config folder. Settings that affect dialogue are controlled by the server, and only operators can change them on a multiplayer server. The **Override Resource Packs** setting is stored on your own computer and applies only to you; changing it reloads your resource packs.
 
 ## Compatibility and known issues
 
-* **Resource packs that replace villager or sheep models (for example Fresh Animations)** override this mod's models and animations, because resource packs take priority over mod resources. Until a setting for this exists (see [upstream issue 5](https://github.com/MarcYohannTheScripter/villager-news-bedrock-addon-java-port/issues/5)), the workaround is to remove the villager, wandering trader and sheep model files from the pack.
+* **Resource packs that replace villager or sheep models (for example Fresh Animations)** normally override this mod's models and animations, because resource packs take priority over mod resources. The **Override Resource Packs** setting (on by default) puts the model, rule and texture files this mod ships above every resource pack, so its villagers, wandering trader and Wooly keep their models and animations; turn it off to let the resource pack win. Both replace the whole villager model, so they cannot be merged, and the setting only covers the files this mod ships. See [upstream issue 5](https://github.com/MarcYohannTheScripter/villager-news-bedrock-addon-java-port/issues/5).
 * **Reaction lines for mobs newer than 1.21.1.** The creaking, copper golem, happy ghast and sulfur cube lines exist, but those mobs do not exist in 1.21.1. They only trigger on a mob that has been renamed to that name (for example a zombie named `Creaking`).
 * **Baby villager clothing** is painted into the skin sheet by hand, because 1.21.1 does not draw the clothing layer on babies. The colours are close to, but not exactly, the original.
 * A short flicker-smoothing step that the Fabric port applied to villager clothing changes was not recreated. No flicker has been observed in 1.21.1.
@@ -184,7 +186,7 @@ build/libs/
 For the current version, the resulting artifact is:
 
 ```text
-villager_news_addon_port-1.0.1.jar
+villager_news_addon_port-1.0.2.jar
 ```
 
 Other useful tasks:
