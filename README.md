@@ -45,7 +45,7 @@ This is a port of the Fabric / Minecraft 26.3 version to a much older game versi
 | Spawn eggs | Dedicated textures | Registered with a white tint so the textures show unchanged |
 | Sign board on villagers | Render-state layer using 26.x sign textures | Rewritten as a 1.21.1 render layer using the `entity/signs` sheets. 1.21.1 has no pale oak sign, so that slot draws oak |
 | Villager held items | Positioned by an EMF attachment | Drawn at vanilla's own position by a client mixin; EMF's position came out low and upside down in 1.21.1 |
-| Baby villagers | Own model layer | Chosen by a model rule in `villager.properties`, drawn at twice the size to cancel vanilla's baby scaling, with the clothing painted into the skin sheet by hand |
+| Baby villagers | Own model layer | Chosen by a model rule in `villager.properties`, drawn at twice the size to cancel vanilla's baby scaling, with the original clothing layer merged into the skin sheet |
 | Wooly the sheep | Model attached to the sheep root | 1.21.1 sheep have no root part, so the model is attached to the body with a rotation and offset correction |
 | Vanilla trade and celebrate sounds | Removed by a mixin | Cancelled on the server by an event handler |
 | Baby villager spawn-egg reaction | Mixin on `SpawnEggItem` | NeoForge events (the mixin failed on 1.21.1) |
@@ -132,7 +132,6 @@ Open the settings from the Villager News Handbook, or use the config button next
 
 * **Resource packs that replace villager or sheep models (for example Fresh Animations)** normally override this mod's models and animations, because resource packs take priority over mod resources. The **Override Resource Packs** setting (on by default) puts the model, rule and texture files this mod ships above every resource pack, so its villagers, wandering trader and Wooly keep their models and animations; turn it off to let the resource pack win. Both replace the whole villager model, so they cannot be merged, and the setting only covers the files this mod ships. See [upstream issue 5](https://github.com/MarcYohannTheScripter/villager-news-bedrock-addon-java-port/issues/5).
 * **Reaction lines for mobs newer than 1.21.1.** The creaking, copper golem, happy ghast and sulfur cube lines exist, but those mobs do not exist in 1.21.1. They only trigger on a mob that has been renamed to that name (for example a zombie named `Creaking`).
-* **Baby villager clothing** is painted into the skin sheet by hand, because 1.21.1 does not draw the clothing layer on babies. The colours are close to, but not exactly, the original.
 * A short flicker-smoothing step that the Fabric port applied to villager clothing changes was not recreated. No flicker has been observed in 1.21.1.
 * Not every dialogue group and trigger has been played and checked in game, and dedicated-server and multiplayer testing has been limited.
 
