@@ -4,15 +4,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.vnap.VillagerNewsAddonPort;
-import com.vnap.entity.VillagerNewsData;
 import net.minecraft.client.model.VillagerModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.VillagerRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.npc.Villager;
 import traben.entity_model_features.models.IEMFModel;
 import traben.entity_model_features.models.animation.EMFAttachment;
 import traben.entity_model_features.models.parts.EMFModelPartRoot;
@@ -20,8 +19,8 @@ import traben.entity_model_features.models.parts.EMFModelPartRoot;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
-/** Draws the sign board a villager is holding. Ported from the render-state version to the 1.21.1 layer API. */
-public final class VillagerNewsSignLayer extends RenderLayer<Villager, VillagerModel<Villager>> {
+/** Draws the sign board a villager is holding. Reads the sign from the render state, copied over by VillagerRendererMixin. */
+public final class VillagerNewsSignLayer extends RenderLayer<VillagerRenderState, VillagerModel> {
 	// Tuning knobs. Offsets are in blocks (0.0625 = one pixel); rotation is extra degrees. Restart the game after changing.
 	private static final boolean USE_EMF_POSITIONER = true;
 	private static final float OFFSET_X = 0.0F;
@@ -37,17 +36,17 @@ public final class VillagerNewsSignLayer extends RenderLayer<Villager, VillagerM
 	};
 	private static final ResourceLocation TEXT_TEXTURE = VillagerNewsAddonPort.id("textures/entity/sign_text.png");
 
-	public VillagerNewsSignLayer(RenderLayerParent<Villager, VillagerModel<Villager>> renderer) {
+	public VillagerNewsSignLayer(RenderLayerParent<VillagerRenderState, VillagerModel> renderer) {
 		super(renderer);
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Villager villager,
-			float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-		VillagerNewsData data = (VillagerNewsData) villager;
-		int type = data.vnap$signType();
-		int message = data.vnap$signMessage();
-		if (villager.isInvisible() || villager.isBaby() || type < 0 || type >= BOARD_TEXTURES.length
+	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, VillagerRenderState state,
+			float yRot, float xRot) {
+		VillagerNewsRenderState sign = (VillagerNewsRenderState) state;
+		int type = sign.vnap$signType();
+		int message = sign.vnap$signMessage();
+		if (state.isInvisible || state.isBaby || type < 0 || type >= BOARD_TEXTURES.length
 				|| message < 0 || message >= MESSAGES) return;
 		poseStack.pushPose();
 		if (position(poseStack)) {
@@ -61,7 +60,7 @@ public final class VillagerNewsSignLayer extends RenderLayer<Villager, VillagerM
 
 	/** Moves to the villager's arms: EMF's attachment point when the model defines one, otherwise the vanilla arms part. */
 	private boolean position(PoseStack poseStack) {
-		VillagerModel<Villager> model = getParentModel();
+		VillagerModel model = getParentModel();
 		if (USE_EMF_POSITIONER && (Object) model instanceof IEMFModel emfModel && emfModel.emf$isEMFModel()) {
 			EMFModelPartRoot root = emfModel.emf$getEMFRootModel();
 			Consumer<PoseStack> positioner = root == null ? null : root.getPositionerForAttachment(EMFAttachment.Type.VILLAGER);

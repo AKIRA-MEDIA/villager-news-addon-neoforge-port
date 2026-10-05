@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
@@ -278,11 +279,11 @@ public final class DialogueTestCommand {
 	}
 
 	private static LivingEntity createSpeaker(ServerLevel level, DialogueCatalog.DialogueGroup group) {
-		if (isCosmeticRecipientDialogue(group.id())) return EntityType.VILLAGER.create(level);
+		if (isCosmeticRecipientDialogue(group.id())) return EntityType.VILLAGER.create(level, EntitySpawnReason.COMMAND);
 		return switch (group.speaker()) {
-			case "wooly" -> EntityType.SHEEP.create(level);
-			case "wandering_trader" -> EntityType.WANDERING_TRADER.create(level);
-			default -> EntityType.VILLAGER.create(level);
+			case "wooly" -> EntityType.SHEEP.create(level, EntitySpawnReason.COMMAND);
+			case "wandering_trader" -> EntityType.WANDERING_TRADER.create(level, EntitySpawnReason.COMMAND);
+			default -> EntityType.VILLAGER.create(level, EntitySpawnReason.COMMAND);
 		};
 	}
 
@@ -517,7 +518,7 @@ public final class DialogueTestCommand {
 	private static Entity createEntity(ServerLevel level, String path) {
 		EntityType<?> type = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE
 			.getOptional(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("minecraft", path)).orElse(null);
-		return type == null ? null : type.create(level);
+		return type == null ? null : type.create(level, EntitySpawnReason.COMMAND);
 	}
 
 	private static void prepareEntity(Entity entity, Vec3 position) {

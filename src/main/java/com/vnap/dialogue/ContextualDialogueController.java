@@ -20,7 +20,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -217,7 +217,7 @@ public final class ContextualDialogueController {
     private ContextualDialogueController() {
     }
 
-    private static final Map<UUID, MobSpawnType> SPAWN_REASONS = new HashMap<>();
+    private static final Map<UUID, EntitySpawnReason> SPAWN_REASONS = new HashMap<>();
     private static final List<PendingBreak> PENDING_BREAKS = new ArrayList<>();
 
     private record PendingBreak(ServerLevel level, UUID playerId, BlockPos pos, BlockState state, long dueTick) {
@@ -413,7 +413,7 @@ public final class ContextualDialogueController {
             return;
         }
         if (!(entity instanceof Villager villager)) return;
-        MobSpawnType reason = SPAWN_REASONS.remove(villager.getUUID());
+        EntitySpawnReason reason = SPAWN_REASONS.remove(villager.getUUID());
         if (tryCreateNaturalSpecial(villager, level, reason)) return;
         ensureSpecialTrade(villager);
         if (cast(villager) == CastProfile.UNREACHABLE) {
@@ -421,11 +421,11 @@ public final class ContextualDialogueController {
         }
         VILLAGER_STATES.put(villager.getUUID(), snapshot(villager, false));
         VILLAGER_INVENTORIES.put(villager.getUUID(), inventoryCounts(villager));
-        if (reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.DISPENSER) {
+        if (reason == EntitySpawnReason.SPAWN_ITEM_USE || reason == EntitySpawnReason.DISPENSER) {
             ServerPlayer player = nearestPlayer(level, villager.position(), 12.0);
             PENDING_SPEECH.add(new PendingSpeech(level, villager.getUUID(), villager.isBaby() ? "abfwiv" : "vskjkl",
                     player == null ? null : player.getUUID(), ticks + 2L));
-        } else if (reason == MobSpawnType.BREEDING) {
+        } else if (reason == EntitySpawnReason.BREEDING) {
             Villager parent = nearbyVillagers(level, villager.position(), 12.0).stream()
                     .filter(other -> other != villager && !other.isBaby())
                     .min(Comparator.comparingDouble(other -> other.distanceToSqr(villager))).orElse(null);
@@ -434,7 +434,7 @@ public final class ContextualDialogueController {
                 PENDING_SPEECH.add(new PendingSpeech(level, villager.getUUID(), "lgjtnf", parent.getUUID(),
                         ticks + DialogueCatalog.byId("fbuabj").durationTicks() + 4L));
             } else PENDING_SPEECH.add(new PendingSpeech(level, villager.getUUID(), "lgjtnf", null, ticks + 2L));
-        } else if (reason == MobSpawnType.CONVERSION) {
+        } else if (reason == EntitySpawnReason.CONVERSION) {
             PENDING_SPEECH.add(new PendingSpeech(level, villager.getUUID(), villager.isBaby() ? "ggitzq" : "ivumgm", null, ticks + 2L));
         }
     }
@@ -1875,7 +1875,7 @@ return path;
                 VillagerNewsData state = data(villager);
                 int previousSign = state.vnap$signType();
                 if (previousSign == offeredSign) return InteractionResult.SUCCESS;
-                if (previousSign >= 0) villager.spawnAtLocation(signItem(previousSign));
+                if (previousSign >= 0 && villager.level() instanceof ServerLevel vnapLevel) villager.spawnAtLocation(vnapLevel, signItem(previousSign));
                 state.vnap$setSignType(offeredSign);
                 consume(player, heldStack);
                 villager.level().playSound(null, villager.blockPosition(), SoundEvents.HORSE_STEP_WOOD, SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -1919,7 +1919,7 @@ return path;
         VillagerNewsData state = data(villager);
         if (stack.getItem() == Items.SHEARS && state.vnap$signType() >= 0) {
             if (villager.level() instanceof ServerLevel level) {
-                villager.spawnAtLocation(signItem(state.vnap$signType()));
+                villager.spawnAtLocation(level, signItem(state.vnap$signType()));
                 level.playSound(null, villager.blockPosition(), SoundEvents.SHEEP_SHEAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
             state.vnap$setSignMessage(-1);
@@ -1943,7 +1943,7 @@ return path;
             if (state.vnap$cosmetic() != 0) {
                 if (villager.level() instanceof ServerLevel level) {
                     net.minecraft.world.item.Item item = VillagerNewsItems.cosmeticItem(state.vnap$cosmetic());
-                    if (item != null) villager.spawnAtLocation(new ItemStack(item));
+                    if (item != null) villager.spawnAtLocation(level, new ItemStack(item));
                     level.playSound(null, villager.blockPosition(), SoundEvents.SHEEP_SHEAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 }
                 state.vnap$setCosmetic(0);
@@ -1953,7 +1953,7 @@ return path;
             }
             if (state.vnap$hasNose()) {
                 if (villager.level() instanceof ServerLevel level) {
-                    villager.spawnAtLocation(new ItemStack(VillagerNewsItems.VILLAGER_NOSE));
+                    villager.spawnAtLocation(level, new ItemStack(VillagerNewsItems.VILLAGER_NOSE));
                     level.playSound(null, villager.blockPosition(), SoundEvents.SHEEP_SHEAR, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 }
                 state.vnap$setHasNose(false);
@@ -2549,8 +2549,8 @@ return path;
         };
     }
 
-    private static boolean tryCreateNaturalSpecial(Villager villager, ServerLevel level, MobSpawnType reason) {
-        if (!VillagerNewsSettings.spawnSpecialVillagers() || reason != MobSpawnType.STRUCTURE) return false;
+    private static boolean tryCreateNaturalSpecial(Villager villager, ServerLevel level, EntitySpawnReason reason) {
+        if (!VillagerNewsSettings.spawnSpecialVillagers() || reason != EntitySpawnReason.STRUCTURE) return false;
         BlockPos spawn = level.getSharedSpawnPos();
         if (villager.distanceToSqr(Vec3.atCenterOf(spawn)) <= 1000.0 * 1000.0) return false;
         Scoreboard scoreboard = level.getServer().getScoreboard();
@@ -2572,7 +2572,7 @@ return path;
         if (available.isEmpty()) return false;
         String key = available.get(ThreadLocalRandom.current().nextInt(available.size()));
         if (key.equals("wooly")) {
-            Sheep sheep = EntityType.SHEEP.create(level);
+            Sheep sheep = EntityType.SHEEP.create(level, EntitySpawnReason.EVENT);
             if (sheep == null) return false;
             sheep.copyPosition(villager);
             sheep.setCustomName(Component.literal(NATURAL_SPECIAL_NAMES.get(key)));

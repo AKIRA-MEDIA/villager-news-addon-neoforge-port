@@ -60,7 +60,7 @@ public final class VillagerNewsAddonPortClient {
 	}
 
 	private static void addLayers(EntityRenderersEvent.AddLayers event) {
-		EntityRenderer<?> renderer = event.getRenderer(EntityType.VILLAGER);
+		EntityRenderer<?, ?> renderer = event.getRenderer(EntityType.VILLAGER);
 		if (renderer instanceof VillagerRenderer villagerRenderer) {
 			villagerRenderer.addLayer(new VillagerNewsSignLayer(villagerRenderer));
 		}

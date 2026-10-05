@@ -30,6 +30,6 @@ public final class VillagerTradeSoundFilter {
 	@SubscribeEvent
 	public static void onPlaySound(PlayLevelSoundEvent event) {
 		Holder<SoundEvent> sound = event.getSound();
-		if (sound != null && SILENCED.contains(sound.value().getLocation())) event.setCanceled(true);
+		if (sound != null && SILENCED.contains(sound.value().location())) event.setCanceled(true);
 	}
 }

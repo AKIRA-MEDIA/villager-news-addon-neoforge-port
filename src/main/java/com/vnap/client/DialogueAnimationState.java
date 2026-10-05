@@ -223,7 +223,7 @@ public final class DialogueAnimationState {
 		if (!(emfEntity instanceof LivingEntity entity)
 				|| !(entity instanceof Villager) && !(entity instanceof WanderingTrader)) return fallback;
 		UUID id = entity.getUUID();
-		float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+		float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
 		float age = emfEntity.emf$age() + partialTick;
 		float speed = entity.walkAnimation.speed(partialTick);
 		IdleState idle = IDLE_STATES.computeIfAbsent(id, ignored -> new IdleState());
@@ -262,7 +262,7 @@ public final class DialogueAnimationState {
 		if (!(emfEntity instanceof LivingEntity entity)
 				|| !(entity instanceof Villager) && !(entity instanceof WanderingTrader)
 				|| entity.isSleeping()) return 0.0F;
-		float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+		float partialTick = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
 		float age = emfEntity.emf$age() + partialTick;
 		LookState state = LOOK_STATES.computeIfAbsent(entity.getUUID(), ignored -> new LookState());
 		state.update(age, Mth.clamp(entity.getXRot(), -90.0F, 90.0F),
@@ -271,7 +271,7 @@ public final class DialogueAnimationState {
 	}
 
 	private static float animationTick(EMFEntity entity) {
-		return entity.emf$age() + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+		return entity.emf$age() + Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
 	}
 
 	private static MouthFrame mouthFrame() {

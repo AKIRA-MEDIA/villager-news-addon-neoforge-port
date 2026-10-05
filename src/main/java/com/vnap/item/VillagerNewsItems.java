@@ -9,12 +9,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.equipment.Equippable;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.util.LinkedHashMap;
@@ -26,12 +28,12 @@ public final class VillagerNewsItems {
 
 	public static final ResourceKey<CreativeModeTab> CREATIVE_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB,
 			VillagerNewsAddonPort.id("items"));
-	public static final Item HANDBOOK = add("handbook", new Item(single()));
-	public static final Item MAYOR_HAT = add("mayor_hat", new HeadItem(single()));
-	public static final Item MICROPHONE = add("microphone", new Item(single()));
-	public static final Item MOUSTACHE = add("moustache", new HeadItem(single()));
-	public static final Item TESTIFICATE_MAN_HELMET = add("testificate_man_helmet", new HeadItem(single()));
-	public static final Item VILLAGER_NOSE = add("villager_nose", new HeadItem(single()));
+	public static final Item HANDBOOK = add("handbook", new Item(single("handbook")));
+	public static final Item MAYOR_HAT = add("mayor_hat", new Item(head("mayor_hat")));
+	public static final Item MICROPHONE = add("microphone", new Item(single("microphone")));
+	public static final Item MOUSTACHE = add("moustache", new Item(head("moustache")));
+	public static final Item TESTIFICATE_MAN_HELMET = add("testificate_man_helmet", new Item(head("testificate_man_helmet")));
+	public static final Item VILLAGER_NOSE = add("villager_nose", new Item(head("villager_nose")));
 	public static final Item MAYOR_VILLAGER_SPAWN_EGG = spawnEgg("mayor_villager_spawn_egg", EntityType.VILLAGER, "Mayor Villager", 0xFFFFFF, 0xFFFFFF);
 	public static final Item TESTIFICATE_MAN_SPAWN_EGG = spawnEgg("testificate_man_spawn_egg", EntityType.VILLAGER, "Testificate Man", 0xFFFFFF, 0xFFFFFF);
 	public static final Item VILLAGER_5_SPAWN_EGG = spawnEgg("villager_5_spawn_egg", EntityType.VILLAGER, "Villager #5", 0xFFFFFF, 0xFFFFFF);
@@ -83,8 +85,18 @@ public final class VillagerNewsItems {
 				.map(Map.Entry::getKey).findFirst().orElse(null);
 	}
 
-	private static Item.Properties single() {
-		return new Item.Properties().stacksTo(1);
+	private static ResourceKey<Item> key(String path) {
+		return ResourceKey.create(Registries.ITEM, VillagerNewsAddonPort.id(path));
+	}
+
+	/** 1.21.2 items must know their registry id when their properties are built. */
+	private static Item.Properties single(String path) {
+		return new Item.Properties().stacksTo(1).setId(key(path));
+	}
+
+	/** Worn on the head by right-click, replacing the old HeadItem class (items use the equippable component now). */
+	private static Item.Properties head(String path) {
+		return single(path).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).build());
 	}
 
 	private static Item add(String path, Item item) {
@@ -97,7 +109,7 @@ public final class VillagerNewsItems {
 		tag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
 		tag.putString("CustomName", "{\"text\":\"" + entityName + "\"}");
 		tag.putBoolean("PersistenceRequired", true);
-		Item.Properties properties = new Item.Properties().component(DataComponents.ENTITY_DATA, CustomData.of(tag));
+		Item.Properties properties = new Item.Properties().setId(key(path)).component(DataComponents.ENTITY_DATA, CustomData.of(tag));
 		return add(path, new SpawnEggItem(type, primary, secondary, properties));
 	}
 }
