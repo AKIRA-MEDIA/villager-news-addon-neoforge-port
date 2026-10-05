@@ -1,21 +1,21 @@
 # Villager News Addon NeoForge Port
 
-A public **NeoForge fork** of the Villager News Java Edition port, maintained by Akira-Media.
+A public **NeoForge 1.21.1 fork** of the Villager News Java Edition port, maintained by Akira-Media.
 
-It brings the Villager News characters, models, animations, textures, voice acting and contextual dialogue to Minecraft Java Edition on NeoForge, while keeping normal Minecraft villager gameplay.
+It brings the Villager News characters, models, animations, textures, voice acting and contextual dialogue to Minecraft Java Edition 1.21.1 on NeoForge, while keeping normal Minecraft villager gameplay.
 
 This fork is based on the Fabric port for Minecraft 26.3 by MarcYohannTheScripter, which is itself based on the original Villager News Add-On by Oreville Studios Ltd and Element Animation. See [Credits](#credits).
 
 ## Downloads
 
-Pick the jar that matches your Minecraft version. A jar built for one version will not load on another, and each release page lists what changed for that version.
+Choose the jar for your **Minecraft version**, which your launcher shows next to your NeoForge profile. A jar only works on the version it is built for. Each release page lists what changed.
 
-| Minecraft | NeoForge | Tested with | Download | Status |
+| Minecraft | Download | NeoForge | Tested with | Status |
 | --- | --- | --- | --- | --- |
-| **1.21.1** | 21.1.252 or newer | EMF 3.3.9, ETF 7.2.4, ESF 0.8.2 | [Release for 1.21.1](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/tag/v1.0.4) | Stable |
-| **1.21.3** | 21.3.x (tested on 21.3.97) | EMF 3.3.11, ETF 7.2.5, ESF 0.8.2 | [Release for 1.21.3](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/tag/v1.0.4-1.21.3) | Pre-release |
+| **1.21.3** | [villager-news-addon-port-1.0.5-1.21.3.jar](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/download/v1.0.5-1.21.3/villager-news-addon-port-1.0.5-1.21.3.jar) ([notes](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/tag/v1.0.5-1.21.3)) | 21.3.x | EMF 3.3.11, ETF 7.2.5, ESF 0.8.2 | Pre-release |
+| **1.21.1** | [villager_news_addon_port-1.0.4.jar](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/download/v1.0.4/villager_news_addon_port-1.0.4.jar) ([notes](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/tag/v1.0.4)) | 21.1.252 or newer | EMF 3.3.9, ETF 7.2.4, ESF 0.8.2 | Stable |
 
-The source for each version is on its own branch: `neoforge-1.21.1` and `neoforge-1.21.3`. The differences table below describes the 1.21.1 build.
+Each version also needs Entity Model Features, Entity Texture Features and Entity Sound Features built for the same Minecraft version. They are not bundled. Other versions are not available yet. See the [Releases page](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases) for everything published.
 
 ## Features
 
@@ -63,15 +63,32 @@ This is a port of the Fabric / Minecraft 26.3 version to a much older game versi
 | Resource pack priority | Resource packs always override the mod's models | Optional setting (on by default) that puts the mod's models above resource packs such as Fresh Animations |
 | Mixins | Includes render-state and profession-layer mixins | Six common mixins and two client mixins; the render-state and profession-layer mixins were not needed in 1.21.1 |
 
-## Requirements and installation
+## Requirements
 
-Every version needs three other mods, which are **not bundled**: Entity Model Features (EMF), Entity Texture Features (ETF) and Entity Sound Features (ESF). NeoForge will refuse to load the mod if one is missing or too old.
+* **Minecraft Java Edition 1.21.1**
+* **NeoForge 21.1.252 or newer**
+* **Entity Model Features (EMF) 3.3.9 or newer**
+* **Entity Texture Features (ETF) 7.2.4 or newer**
+* **Entity Sound Features (ESF) 0.8.2 or newer**
 
-1. Install the Minecraft version and NeoForge version from the Downloads table.
-2. Put the Villager News jar **for that Minecraft version** into your `mods` folder, together with EMF, ETF and ESF built for the same Minecraft version.
-3. Launch Minecraft using NeoForge.
+EMF, ETF, and ESF are **required external dependencies**. They are not bundled with this project.
+
+NeoForge will prevent the mod from loading if any of the required dependencies are missing or below the minimum supported version.
+
+## Installation
+
+1. Install **Minecraft Java Edition 1.21.1**.
+2. Install **NeoForge 21.1.252 or newer** for Minecraft 1.21.1.
+3. Install the required versions of:
+
+   * Entity Model Features (EMF) 3.3.9 or newer
+   * Entity Texture Features (ETF) 7.2.4 or newer
+   * Entity Sound Features (ESF) 0.8.2 or newer
+4. Place the Villager News Addon NeoForge Port jar and all required dependency jars into your Minecraft `mods` folder.
+5. Launch Minecraft using NeoForge.
 
 For multiplayer, the mod and its required dependencies should be installed on both the server and connecting clients. The dialogue system is controlled by the server, while EMF, ETF, and ESF provide the client-side model, texture, and sound functionality required by the mod.
+
 ## Characters
 
 Use a name tag on a villager to select a character model and voice:
@@ -177,7 +194,7 @@ build/libs/
 For the current version, the resulting artifact is:
 
 ```text
-villager_news_addon_port-<version>.jar
+villager_news_addon_port-1.0.4.jar
 ```
 
 Other useful tasks:
