@@ -31,7 +31,7 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    archivesName = 'villager-news-addon-port'
 }
 
 // Mojang ships Java 21 to end users in 1.21, so mods should target Java 21.
@@ -138,8 +138,8 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     compileOnly files(
-            'libs/entity_model_features-3.3.9-1.21-neoforge.jar',
-            'libs/entity_texture_features-7.2.4-1.21-neoforge.jar',
+            'libs/entity_model_features-3.3.11-1.21-neoforge.jar',
+            'libs/entity_texture_features-7.2.5-1.21-neoforge.jar',
             'libs/entity_sound_features-0.8.2-1.21-neoforge.jar'
     )
 }
