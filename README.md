@@ -6,7 +6,16 @@ It brings the Villager News characters, models, animations, textures, voice acti
 
 This fork is based on the Fabric port for Minecraft 26.3 by MarcYohannTheScripter, which is itself based on the original Villager News Add-On by Oreville Studios Ltd and Element Animation. See [Credits](#credits).
 
-Version in this repository: **1.0.4**
+## Downloads
+
+Choose the jar for your **Minecraft version**, which your launcher shows next to your NeoForge profile. A jar only works on the version it is built for. Each release page lists what changed.
+
+| Minecraft | Download | NeoForge | Tested with | Status |
+| --- | --- | --- | --- | --- |
+| **1.21.3** | [villager-news-addon-port-1.0.5-1.21.3.jar](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/download/v1.0.5-1.21.3/villager-news-addon-port-1.0.5-1.21.3.jar) ([notes](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/tag/v1.0.5-1.21.3)) | 21.3.x | EMF 3.3.11, ETF 7.2.5, ESF 0.8.2 | Pre-release |
+| **1.21.1** | [villager_news_addon_port-1.0.4.jar](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/download/v1.0.4/villager_news_addon_port-1.0.4.jar) ([notes](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/tag/v1.0.4)) | 21.1.252 or newer | EMF 3.3.9, ETF 7.2.4, ESF 0.8.2 | Stable |
+
+Each version also needs Entity Model Features, Entity Texture Features and Entity Sound Features built for the same Minecraft version. They are not bundled. Other versions are not available yet. See the [Releases page](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases) for everything published.
 
 ## Features
 
