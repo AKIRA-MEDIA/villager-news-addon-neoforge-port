@@ -1,6 +1,6 @@
 # Villager News Addon NeoForge Port
 
-A public **NeoForge fork** of the Villager News Java Edition port, maintained by Akira-Media.
+A public **NeoForge fork** of the Villager News Java Edition port, maintained by AKIRA-MEDIA.
 
 It brings the Villager News characters, models, animations, textures, voice acting and contextual dialogue to Minecraft Java Edition on NeoForge (1.21.1 and 1.21.3), while keeping normal Minecraft villager gameplay.
 
@@ -8,14 +8,14 @@ This fork is based on the Fabric port for Minecraft 26.3 by MarcYohannTheScripte
 
 ## Downloads
 
-Choose the jar for your **Minecraft version**, which your launcher shows next to your NeoForge profile. A jar only works on the version it is built for. Both jars are on the [1.0.5 release](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/tag/v1.0.5), and each version's changes are listed in its notes.
+Choose the jar for your **Minecraft version**, which your launcher shows next to your NeoForge profile. A jar only works on the version it is built for. Both jars are on the [1.0.5 release](https://github.com/AKIRA-MEDIA/villager-news-addon-neoforge-port/releases/tag/v1.0.5), and each version's changes are listed in its notes.
 
 | Minecraft | Download | NeoForge | Tested with | Status |
 | --- | --- | --- | --- | --- |
-| **1.21.3** | [villager-news-addon-port-1.0.5-1.21.3.jar](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/download/v1.0.5/villager-news-addon-port-1.0.5-1.21.3.jar) | 21.3.x | EMF 3.3.11, ETF 7.2.5, ESF 0.8.2 | Beta |
-| **1.21.1** | [villager-news-addon-port-1.0.5-1.21.1.jar](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases/download/v1.0.5/villager-news-addon-port-1.0.5-1.21.1.jar) | 21.1.252 or newer | EMF 3.3.11, ETF 7.2.5, ESF 0.8.2 | Stable |
+| **1.21.3** | [villager-news-addon-port-1.0.5-1.21.3.jar](https://github.com/AKIRA-MEDIA/villager-news-addon-neoforge-port/releases/download/v1.0.5/villager-news-addon-port-1.0.5-1.21.3.jar) | 21.3.x | EMF 3.3.11, ETF 7.2.5, ESF 0.8.2 | Beta |
+| **1.21.1** | [villager-news-addon-port-1.0.5-1.21.1.jar](https://github.com/AKIRA-MEDIA/villager-news-addon-neoforge-port/releases/download/v1.0.5/villager-news-addon-port-1.0.5-1.21.1.jar) | 21.1.252 or newer | EMF 3.3.11, ETF 7.2.5, ESF 0.8.2 | Stable |
 
-Each version also needs Entity Model Features, Entity Texture Features and Entity Sound Features built for the same Minecraft version. They are not bundled. Other versions are not available yet. See the [Releases page](https://github.com/Akira-Media/villager-news-addon-neoforge-port/releases) for everything published.
+Each version also needs Entity Model Features, Entity Texture Features and Entity Sound Features built for the same Minecraft version. They are not bundled. Other versions are not available yet. See the [Releases page](https://github.com/AKIRA-MEDIA/villager-news-addon-neoforge-port/releases) for everything published.
 
 ## Features
 
@@ -151,7 +151,7 @@ You will need:
 Clone the repository and switch to the branch for your Minecraft version (`neoforge-1.21.1` is shown):
 
 ```bash
-git clone https://github.com/Akira-Media/villager-news-addon-neoforge-port.git
+git clone https://github.com/AKIRA-MEDIA/villager-news-addon-neoforge-port.git
 cd villager-news-addon-neoforge-port
 git checkout neoforge-1.21.1
 ```
@@ -219,7 +219,7 @@ This port has been tested in a development client and in a clean Prism Launcher 
 
 ## Reporting problems
 
-Open an issue at <https://github.com/Akira-Media/villager-news-addon-neoforge-port/issues> and include:
+Open an issue at <https://github.com/AKIRA-MEDIA/villager-news-addon-neoforge-port/issues> and include:
 
 * Your `logs/latest.log` (and `logs/debug.log` if a mixin is involved)
 * Your NeoForge, EMF, ETF and ESF versions
@@ -231,13 +231,13 @@ Problems that also happen in the Fabric port are best reported upstream.
 
 - **Original Villager News Add-On:** Oreville Studios Ltd / Element Animation
 - **Original Java port (Fabric, Minecraft 26.3):** MarcYohannTheScripter (marcy) - [villager-news-bedrock-addon-java-port](https://github.com/MarcYohannTheScripter/villager-news-bedrock-addon-java-port)
-- **NeoForge port and maintenance:** Akira-Media
+- **NeoForge port and maintenance:** AKIRA-MEDIA
 
 This project is a NeoForge port based on the original Villager News Add-On and the existing Java port listed above.
 
 The original characters, models, textures, animations, sounds, voice acting, and other original assets remain the property of their respective creators.
 
-The NeoForge port code and changes written by Akira-Media are free to use under the MIT licence (see [LICENSE-PORT](LICENSE-PORT)): you may use, modify and redistribute them, including in your own projects. This does not cover the original Villager News models, textures, animations, sounds, voice acting and dialogue, which remain the property of their creators, or the code inherited from the upstream Java port, which is covered only as described in [LICENSE](LICENSE) (the Fabric template code is CC0).
+The NeoForge port code and changes written by AKIRA-MEDIA are free to use under the MIT licence (see [LICENSE-PORT](LICENSE-PORT)): you may use, modify and redistribute them, including in your own projects. This does not cover the original Villager News models, textures, animations, sounds, voice acting and dialogue, which remain the property of their creators, or the code inherited from the upstream Java port, which is covered only as described in [LICENSE](LICENSE) (the Fabric template code is CC0).
 
 ### AI Assistance
 
